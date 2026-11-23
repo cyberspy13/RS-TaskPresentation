@@ -22,5 +22,10 @@ tableextension 50101 NAVI_ShipToAddress extends "Ship-to Address"
                     exit;
             end;
         }
+        field(50102; Postcode; Text[250])
+        {
+            Caption = 'Postcode';
+            TableRelation = NAVI_SelectedCarrier.Postcode;
+        }
     }
 }

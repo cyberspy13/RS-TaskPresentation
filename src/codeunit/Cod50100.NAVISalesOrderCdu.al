@@ -12,6 +12,8 @@ codeunit 50100 NAVI_SalesOrderCdu
         GetSelectedShippingAgentCode2(Rec)
     end;
 
+
+
     local procedure GetSelectedShippingAgentCode(var SalesHeader: record "Sales Header")
     var
         Customer: Record Customer;
@@ -40,4 +42,41 @@ codeunit 50100 NAVI_SalesOrderCdu
             SalesHeader2.Validate("Shipping Agent Code", ShipToAddress."Selected Carrier");
         end;
     end;
+
+
+
+
+
+
+
+
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterValidateEvent', 'Ship-to Post Code', false, false)]
+    local procedure OnAfterValidateSellToShipTOPostCode(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
+    begin
+        GetSelectedShippingAgentShipCode(Rec)
+    end;
+
+    local procedure GetSelectedShippingAgentShipCode(var SalesHeader2: record "Sales Header")
+    var
+        Customer2: Record Customer;
+        ShipToAddress: Record "Ship-to Address";
+        SelectedCarrier: Record NAVI_SelectedCarrier;
+        i: Integer;
+    begin
+        /*
+        SelectedCarrier.reset();
+        SelectedCarrier.SetRange("Country Code";
+        Rec."Country/Region Code");
+        SelectedCarrier.SetRange(Postcode;
+        rec."Post Code");
+
+        Postcode := DelChr(Postcode, '=', ' ');
+        for i := StrLen(Postcode) downto 1 do
+            if Zone.Get(CopyStr(Postcode, 1, i)) then
+                exit(true);
+        exit(false);
+        */
+    end;
+
 }
